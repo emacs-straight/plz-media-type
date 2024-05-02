@@ -1,0 +1,7 @@
+.elpaignore
+.github
+LICENSE
+Makefile
+makem.sh
+plz-media-type.org
+tests
