@@ -1,4 +1,4 @@
-This is docP8dJfv.info, produced by makeinfo version 6.8 from
+This is docMvaVjm.info, produced by makeinfo version 6.8 from
 plz-media-type.texi.
 
 INFO-DIR-SECTION Emacs
@@ -7,7 +7,7 @@ START-INFO-DIR-ENTRY
 END-INFO-DIR-ENTRY
 
 
-File: docP8dJfv.info,  Node: Top,  Next: Installation,  Up: (dir)
+File: docMvaVjm.info,  Node: Top,  Next: Installation,  Up: (dir)
 
 plz-media-type
 **************
@@ -52,7 +52,7 @@ Media Types
 
 
 
-File: docP8dJfv.info,  Node: Installation,  Next: Usage,  Prev: Top,  Up: Top
+File: docMvaVjm.info,  Node: Installation,  Next: Usage,  Prev: Top,  Up: Top
 
 1 Installation
 **************
@@ -62,7 +62,7 @@ File: docP8dJfv.info,  Node: Installation,  Next: Usage,  Prev: Top,  Up: Top
 * GNU ELPA::
 
 
-File: docP8dJfv.info,  Node: GNU ELPA,  Up: Installation
+File: docMvaVjm.info,  Node: GNU ELPA,  Up: Installation
 
 1.1 GNU ELPA
 ============
@@ -72,7 +72,7 @@ File: docP8dJfv.info,  Node: GNU ELPA,  Up: Installation
 in Emacs using the ‘package-install’ command.
 
 
-File: docP8dJfv.info,  Node: Usage,  Next: Credits,  Prev: Installation,  Up: Top
+File: docMvaVjm.info,  Node: Usage,  Next: Credits,  Prev: Installation,  Up: Top
 
 2 Usage
 *******
@@ -100,7 +100,7 @@ These classes determine how the response is processed.
 * Media Types::
 
 
-File: docP8dJfv.info,  Node: Quick Start,  Next: Media Types,  Up: Usage
+File: docMvaVjm.info,  Node: Quick Start,  Next: Media Types,  Up: Usage
 
 2.1 Quick Start
 ===============
@@ -136,7 +136,7 @@ body.
                        (title . "Sample Slide Show"))))
 
 
-File: docP8dJfv.info,  Node: Media Types,  Prev: Quick Start,  Up: Usage
+File: docMvaVjm.info,  Node: Media Types,  Prev: Quick Start,  Up: Usage
 
 2.2 Media Types
 ===============
@@ -167,7 +167,7 @@ plz-media-type:text/html                  text/html                  Yes       N
 * Octet Stream::
 
 
-File: docP8dJfv.info,  Node: JSON,  Next: Newline Delimited JSON Stream,  Up: Media Types
+File: docMvaVjm.info,  Node: JSON,  Next: Newline Delimited JSON Stream,  Up: Media Types
 
 2.2.1 JSON
 ----------
@@ -216,7 +216,7 @@ slots:
                        (title . "Sample Slide Show"))))
 
 
-File: docP8dJfv.info,  Node: Newline Delimited JSON Stream,  Next: JSON Array Stream,  Prev: JSON,  Up: Media Types
+File: docMvaVjm.info,  Node: Newline Delimited JSON Stream,  Next: JSON Array Stream,  Prev: JSON,  Up: Media Types
 
 2.2.2 Newline Delimited JSON Stream
 -----------------------------------
@@ -250,7 +250,7 @@ always be ‘nil’.
                      nil)
 
 
-File: docP8dJfv.info,  Node: JSON Array Stream,  Next: XML,  Prev: Newline Delimited JSON Stream,  Up: Media Types
+File: docMvaVjm.info,  Node: JSON Array Stream,  Next: XML,  Prev: Newline Delimited JSON Stream,  Up: Media Types
 
 2.2.3 JSON Array Stream
 -----------------------
@@ -275,7 +275,7 @@ function for each decoded object.
                               (message "%s" object)))))))
 
 
-File: docP8dJfv.info,  Node: XML,  Next: HTML,  Prev: JSON Array Stream,  Up: Media Types
+File: docMvaVjm.info,  Node: XML,  Next: HTML,  Prev: JSON Array Stream,  Up: Media Types
 
 2.2.4 XML
 ---------
@@ -324,7 +324,7 @@ after receiving the entire response.
                                               " WonderWidgets")))))))
 
 
-File: docP8dJfv.info,  Node: HTML,  Next: Octet Stream,  Prev: XML,  Up: Media Types
+File: docMvaVjm.info,  Node: HTML,  Next: Octet Stream,  Prev: XML,  Up: Media Types
 
 2.2.5 HTML
 ----------
@@ -359,7 +359,7 @@ receiving the entire response.
                                  "\n  ")))
 
 
-File: docP8dJfv.info,  Node: Octet Stream,  Prev: HTML,  Up: Media Types
+File: docMvaVjm.info,  Node: Octet Stream,  Prev: HTML,  Up: Media Types
 
 2.2.6 Octet Stream
 ------------------
@@ -382,7 +382,7 @@ does not parse the response body in any way.
                      "{\n  \"slideshow\": {\n    \"author\": \"Yours Truly\", \n    \"date\": \"date of publication\", \n    \"slides\": [\n      {\n        \"title\": \"Wake up to WonderWidgets!\", \n        \"type\": \"all\"\n      }, \n      {\n        \"items\": [\n          \"Why <em>WonderWidgets</em> are great\", \n          \"Who <em>buys</em> WonderWidgets\"\n        ], \n        \"title\": \"Overview\", \n        \"type\": \"all\"\n      }\n    ], \n    \"title\": \"Sample Slide Show\"\n  }\n}\n")
 
 
-File: docP8dJfv.info,  Node: Credits,  Next: Copyright assignment,  Prev: Usage,  Up: Top
+File: docMvaVjm.info,  Node: Credits,  Next: Copyright assignment,  Prev: Usage,  Up: Top
 
 3 Credits
 *********
@@ -391,7 +391,7 @@ File: docP8dJfv.info,  Node: Credits,  Next: Copyright assignment,  Prev: Usage,
      (https://github.com/alphapapa) for their help and advice.
 
 
-File: docP8dJfv.info,  Node: Copyright assignment,  Next: License,  Prev: Credits,  Up: Top
+File: docMvaVjm.info,  Node: Copyright assignment,  Next: License,  Prev: Credits,  Up: Top
 
 4 Copyright assignment
 **********************
@@ -405,7 +405,7 @@ who wish to do so may contact emacs-devel@gnu.org <emacs-devel@gnu.org>
 to request the assignment form.
 
 
-File: docP8dJfv.info,  Node: License,  Prev: Copyright assignment,  Up: Top
+File: docMvaVjm.info,  Node: License,  Prev: Copyright assignment,  Up: Top
 
 5 License
 *********
