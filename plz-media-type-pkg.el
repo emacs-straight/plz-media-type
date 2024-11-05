@@ -1,2 +1,2 @@
 ;; Generated package description from plz-media-type.el  -*- no-byte-compile: t -*-
-(define-package "plz-media-type" "0.2.2pre0.20241102.115439" "Plz Media Types" '((emacs "26.3") (plz "0.9")) :commit "9e1c361c01a553eb28157c1cb92e34f7953d7d6f" :authors '(("r0man" . "roman@burningswell.com")) :maintainer '("r0man" . "roman@burningswell.com") :keywords '("comm" "network" "http") :url "https://github.com/r0man/plz-media-type")
+(define-package "plz-media-type" "0.2.3pre0.20241104.193258" "Plz Media Types" '((emacs "26.3") (plz "0.9")) :commit "bf0bda2bf6258eae34ad25ed92c29627289360f7" :authors '(("r0man" . "roman@burningswell.com")) :maintainer '("r0man" . "roman@burningswell.com") :keywords '("comm" "network" "http") :url "https://github.com/r0man/plz-media-type")

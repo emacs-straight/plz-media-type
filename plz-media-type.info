@@ -1,4 +1,4 @@
-This is docJH6a8G.info, produced by makeinfo version 6.8 from
+This is doceaus5M.info, produced by makeinfo version 6.8 from
 plz-media-type.texi.
 
 INFO-DIR-SECTION Emacs
@@ -7,7 +7,7 @@ START-INFO-DIR-ENTRY
 END-INFO-DIR-ENTRY
 
 
-File: docJH6a8G.info,  Node: Top,  Next: Installation,  Up: (dir)
+File: doceaus5M.info,  Node: Top,  Next: Installation,  Up: (dir)
 
 plz-media-type
 **************
@@ -26,6 +26,7 @@ type formats.
 
 * Installation::
 * Usage::
+* Troubleshooting::
 * Credits::
 * Copyright assignment::
 * License::
@@ -50,9 +51,13 @@ Media Types
 * HTML::
 * Octet Stream::
 
+Troubleshooting
+
+* Debugging HTTP responses::
+
 
 
-File: docJH6a8G.info,  Node: Installation,  Next: Usage,  Prev: Top,  Up: Top
+File: doceaus5M.info,  Node: Installation,  Next: Usage,  Prev: Top,  Up: Top
 
 1 Installation
 **************
@@ -62,7 +67,7 @@ File: docJH6a8G.info,  Node: Installation,  Next: Usage,  Prev: Top,  Up: Top
 * GNU ELPA::
 
 
-File: docJH6a8G.info,  Node: GNU ELPA,  Up: Installation
+File: doceaus5M.info,  Node: GNU ELPA,  Up: Installation
 
 1.1 GNU ELPA
 ============
@@ -72,7 +77,7 @@ File: docJH6a8G.info,  Node: GNU ELPA,  Up: Installation
 in Emacs using the ‘package-install’ command.
 
 
-File: docJH6a8G.info,  Node: Usage,  Next: Credits,  Prev: Installation,  Up: Top
+File: doceaus5M.info,  Node: Usage,  Next: Troubleshooting,  Prev: Installation,  Up: Top
 
 2 Usage
 *******
@@ -100,7 +105,7 @@ These classes determine how the response is processed.
 * Media Types::
 
 
-File: docJH6a8G.info,  Node: Quick Start,  Next: Media Types,  Up: Usage
+File: doceaus5M.info,  Node: Quick Start,  Next: Media Types,  Up: Usage
 
 2.1 Quick Start
 ===============
@@ -136,7 +141,7 @@ body.
                        (title . "Sample Slide Show"))))
 
 
-File: docJH6a8G.info,  Node: Media Types,  Prev: Quick Start,  Up: Usage
+File: doceaus5M.info,  Node: Media Types,  Prev: Quick Start,  Up: Usage
 
 2.2 Media Types
 ===============
@@ -167,7 +172,7 @@ plz-media-type:text/html                  text/html                  Yes       N
 * Octet Stream::
 
 
-File: docJH6a8G.info,  Node: JSON,  Next: Newline Delimited JSON Stream,  Up: Media Types
+File: doceaus5M.info,  Node: JSON,  Next: Newline Delimited JSON Stream,  Up: Media Types
 
 2.2.1 JSON
 ----------
@@ -216,7 +221,7 @@ slots:
                        (title . "Sample Slide Show"))))
 
 
-File: docJH6a8G.info,  Node: Newline Delimited JSON Stream,  Next: JSON Array Stream,  Prev: JSON,  Up: Media Types
+File: doceaus5M.info,  Node: Newline Delimited JSON Stream,  Next: JSON Array Stream,  Prev: JSON,  Up: Media Types
 
 2.2.2 Newline Delimited JSON Stream
 -----------------------------------
@@ -250,7 +255,7 @@ always be ‘nil’.
                      nil)
 
 
-File: docJH6a8G.info,  Node: JSON Array Stream,  Next: XML,  Prev: Newline Delimited JSON Stream,  Up: Media Types
+File: doceaus5M.info,  Node: JSON Array Stream,  Next: XML,  Prev: Newline Delimited JSON Stream,  Up: Media Types
 
 2.2.3 JSON Array Stream
 -----------------------
@@ -275,7 +280,7 @@ function for each decoded object.
                               (message "%s" object)))))))
 
 
-File: docJH6a8G.info,  Node: XML,  Next: HTML,  Prev: JSON Array Stream,  Up: Media Types
+File: doceaus5M.info,  Node: XML,  Next: HTML,  Prev: JSON Array Stream,  Up: Media Types
 
 2.2.4 XML
 ---------
@@ -324,7 +329,7 @@ after receiving the entire response.
                                               " WonderWidgets")))))))
 
 
-File: docJH6a8G.info,  Node: HTML,  Next: Octet Stream,  Prev: XML,  Up: Media Types
+File: doceaus5M.info,  Node: HTML,  Next: Octet Stream,  Prev: XML,  Up: Media Types
 
 2.2.5 HTML
 ----------
@@ -359,7 +364,7 @@ receiving the entire response.
                                  "\n  ")))
 
 
-File: docJH6a8G.info,  Node: Octet Stream,  Prev: HTML,  Up: Media Types
+File: doceaus5M.info,  Node: Octet Stream,  Prev: HTML,  Up: Media Types
 
 2.2.6 Octet Stream
 ------------------
@@ -382,18 +387,43 @@ does not parse the response body in any way.
                      "{\n  \"slideshow\": {\n    \"author\": \"Yours Truly\", \n    \"date\": \"date of publication\", \n    \"slides\": [\n      {\n        \"title\": \"Wake up to WonderWidgets!\", \n        \"type\": \"all\"\n      }, \n      {\n        \"items\": [\n          \"Why <em>WonderWidgets</em> are great\", \n          \"Who <em>buys</em> WonderWidgets\"\n        ], \n        \"title\": \"Overview\", \n        \"type\": \"all\"\n      }\n    ], \n    \"title\": \"Sample Slide Show\"\n  }\n}\n")
 
 
-File: docJH6a8G.info,  Node: Credits,  Next: Copyright assignment,  Prev: Usage,  Up: Top
+File: doceaus5M.info,  Node: Troubleshooting,  Next: Credits,  Prev: Usage,  Up: Top
 
-3 Credits
+3 Troubleshooting
+*****************
+
+* Menu:
+
+* Debugging HTTP responses::
+
+
+File: doceaus5M.info,  Node: Debugging HTTP responses,  Up: Troubleshooting
+
+3.1 Debugging HTTP responses
+============================
+
+It might be useful to see the full HTTP response while developing a new
+media type format or ‘plz-media-type’ is failing to parse a response of
+an HTTP request.  When the ‘plz-media-type-debug-p’ custom variable is
+set to a non-nil value, each chunk of the HTTP response is written to
+the buffer configured by the ‘plz-media-type-debug-response-buffer’
+custom variable as it arrives.  The buffer is cleared on each new
+request, unless ‘plz-media-type-debug-erase-buffer-p’ is set to a
+non-nil value.
+
+
+File: doceaus5M.info,  Node: Credits,  Next: Copyright assignment,  Prev: Troubleshooting,  Up: Top
+
+4 Credits
 *********
 
    • Thanks to ahyatt (https://github.com/ahyatt) and alphapapa
      (https://github.com/alphapapa) for their help and advice.
 
 
-File: docJH6a8G.info,  Node: Copyright assignment,  Next: License,  Prev: Credits,  Up: Top
+File: doceaus5M.info,  Node: Copyright assignment,  Next: License,  Prev: Credits,  Up: Top
 
-4 Copyright assignment
+5 Copyright assignment
 **********************
 
 This package is part of GNU Emacs (https://www.gnu.org/software/emacs/),
@@ -405,9 +435,9 @@ who wish to do so may contact emacs-devel@gnu.org <emacs-devel@gnu.org>
 to request the assignment form.
 
 
-File: docJH6a8G.info,  Node: License,  Prev: Copyright assignment,  Up: Top
+File: doceaus5M.info,  Node: License,  Prev: Copyright assignment,  Up: Top
 
-5 License
+6 License
 *********
 
 GPLv3
@@ -416,20 +446,22 @@ GPLv3
 
 Tag Table:
 Node: Top218
-Node: Installation1195
-Node: GNU ELPA1330
-Node: Usage1587
-Node: Quick Start2545
-Node: Media Types4126
-Node: JSON5391
-Node: Newline Delimited JSON Stream7309
-Node: JSON Array Stream8558
-Node: XML9371
-Node: HTML11579
-Node: Octet Stream16459
-Node: Credits17797
-Node: Copyright assignment18041
-Node: License18652
+Node: Installation1262
+Node: GNU ELPA1397
+Node: Usage1654
+Node: Quick Start2620
+Node: Media Types4201
+Node: JSON5466
+Node: Newline Delimited JSON Stream7384
+Node: JSON Array Stream8633
+Node: XML9446
+Node: HTML11654
+Node: Octet Stream16534
+Node: Troubleshooting17872
+Node: Debugging HTTP responses18036
+Node: Credits18691
+Node: Copyright assignment18945
+Node: License19556
 
 End Tag Table
 
