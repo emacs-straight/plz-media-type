@@ -5,8 +5,8 @@
 ;; Author: r0man <roman@burningswell.com>
 ;; Maintainer: r0man <roman@burningswell.com>
 ;; URL: https://github.com/r0man/plz-media-type
-;; Version: 0.2.3-pre
-;; Package-Requires: ((emacs "26.3") (plz "0.9"))
+;; Version: 0.2.4-pre
+;; Package-Requires: ((emacs "26.3") (plz "0.9.1"))
 ;; Keywords: comm, network, http
 
 ;; This file is part of GNU Emacs.
@@ -277,6 +277,15 @@ STRING which is output just received from the process."
         (when moving
           (goto-char (process-mark process)))))))
 
+(defconst plz-media-type--blank-line-regexp
+  (rx (+ space) (or "\r\n" "\n" "\r"))
+  "Regular expression matching a blank line.")
+
+(defun plz-media-type--delete-blank-lines ()
+  "Delete the next blank lines following point."
+  (while (looking-at plz-media-type--blank-line-regexp)
+    (delete-region (match-beginning 0) (match-end 0))))
+
 ;; Content Type: application/octet-stream
 
 (defclass plz-media-type:application/octet-stream (plz-media-type)
@@ -299,6 +308,7 @@ body.  It is used as the default media type processor.")
   "Transform the RESPONSE into a format suitable for MEDIA-TYPE."
   (ignore media-type)
   (setf (plz-response-body response) (buffer-string))
+  (delete-region (point) (point-max))
   response)
 
 (cl-defmethod plz-media-type-process
@@ -349,10 +359,12 @@ accordingly.")
 (defun plz-media-type--parse-json-object (media-type)
   "Parse the JSON object in the current buffer according to MEDIA-TYPE."
   (with-slots (array-type false-object null-object object-type) media-type
-    (json-parse-buffer :array-type array-type
-                       :false-object false-object
-                       :null-object null-object
-                       :object-type object-type)) )
+    (let ((start (point)))
+      (prog1 (json-parse-buffer :array-type array-type
+                                :false-object false-object
+                                :null-object null-object
+                                :object-type object-type)
+        (delete-region start (point))))))
 
 (cl-defmethod plz-media-type-then
   ((media-type plz-media-type:application/json) response)
@@ -460,8 +472,7 @@ will always be set to nil.")
 (defun plz-media-type:application/x-ndjson--parse-line (media-type)
   "Parse a single line of the newline delimited JSON MEDIA-TYPE."
   (when (looking-at plz-media-type:application/x-ndjson--line-regexp)
-    (prog1 (plz-media-type--parse-json-object media-type)
-      (delete-region (match-beginning 0) (match-end 0)))))
+    (plz-media-type--parse-json-object media-type)))
 
 (defun plz-media-type:application/x-ndjson--parse-stream (media-type)
   "Parse all lines of the newline delimited JSON MEDIA-TYPE in the PROCESS buffer."
@@ -470,11 +481,14 @@ will always be set to nil.")
       (unless plz-media-type--position
         (setq-local plz-media-type--position (point)))
       (goto-char plz-media-type--position)
-      (when-let (object (plz-media-type:application/x-ndjson--parse-line media-type))
-        (while object
-          (setq-local plz-media-type--position (point))
-          (push object objects)
-          (setq object (plz-media-type:application/x-ndjson--parse-line media-type))))
+      (plz-media-type--delete-blank-lines)
+      (condition-case nil
+          (when-let (object (plz-media-type:application/x-ndjson--parse-line media-type))
+            (while object
+              (setq-local plz-media-type--position (point))
+              (push object objects)
+              (setq object (plz-media-type:application/x-ndjson--parse-line media-type))))
+        (json-end-of-file))
       objects)))
 
 (cl-defmethod plz-media-type-process
@@ -510,6 +524,7 @@ function.")
   (with-slots (array-type false-object null-object object-type) media-type
     (setf (plz-response-body response)
           (libxml-parse-html-region (point-min) (point-max) nil))
+    (delete-region (point) (point-max))
     response))
 
 ;; Content Type: text/html
@@ -699,15 +714,14 @@ not.
   ;; FIXME(v0.8): Remove the note about error changes from the docstring.
   ;; FIXME(v0.8): Update error signals in docstring.
   (declare (indent defun))
+  (when (and plz-media-type-debug-p plz-media-type-debug-erase-buffer-p)
+    (with-current-buffer (get-buffer-create plz-media-type-debug-response-buffer)
+      (erase-buffer)))
   (if-let (media-types (pcase as
                          (`(media-types ,media-types)
                           media-types)))
-      (let ((buffer))
-        (when (and plz-media-type-debug-p plz-media-type-debug-erase-buffer-p)
-          (with-current-buffer (get-buffer-create plz-media-type-debug-response-buffer)
-            (erase-buffer)))
-        (condition-case error
-            (let* ((plz-curl-default-args (cons "--no-buffer" plz-curl-default-args))
+      (condition-case error
+          (letrec ((plz-curl-default-args (cons "--no-buffer" plz-curl-default-args))
                    (result (plz method url
                              :as 'buffer
                              :body body
@@ -715,7 +729,6 @@ not.
                              :connect-timeout connect-timeout
                              :decode decode
                              :else (lambda (error)
-                                     (setq buffer (current-buffer))
                                      (when (or (functionp else) (symbolp else))
                                        (funcall else (plz-media-type-else
                                                       plz-media-type--current
@@ -734,19 +747,27 @@ not.
                              :then (if (symbolp then)
                                        then
                                      (lambda (_)
-                                       (setq buffer (current-buffer))
-                                       (when (or (functionp then) (symbolp then))
-                                         (funcall then (plz-media-type-then
-                                                        plz-media-type--current
-                                                        plz-media-type--response))))))))
-              (cond ((bufferp result)
-                     (plz-media-type--handle-sync-response result))
-                    ((processp result)
-                     result)
-                    (t (user-error "Unexpected response: %s" result))))
-          ;; TODO: How to kill the buffer for sync requests that raise an error?
-          (plz-error (plz-media-type--handle-sync-error error media-types))))
+                                       (let ((response (plz-media-type-then plz-media-type--current plz-media-type--response))
+                                             (content (string-trim (buffer-substring (point) (point-max)))))
+                                         (if (zerop (length content))
+                                             (when (and (or (functionp then) (symbolp then)))
+                                               (funcall then response))
+                                           (when (functionp else)
+                                             (setf (plz-response-body response) content)
+                                             (funcall else (make-plz-error
+                                                            :message (format "Failed to parse response, %s byte%s unprocessed"
+                                                                             (length content) (if (= 1 (length content)) "" "s"))
+                                                            :response response)))))))))
+                   (buffer (if (processp result) (process-buffer result) result)))
+            (cond ((bufferp result)
+                   (plz-media-type--handle-sync-response result))
+                  ((processp result)
+                   result)
+                  (t (user-error "Unexpected response: %s" result))))
+        ;; TODO: How to kill the buffer for sync requests that raise an error?
+        (plz-error (plz-media-type--handle-sync-error error media-types)))
     (apply #'plz (append (list method url) rest))))
+
 
 ;;;; Footer
 
